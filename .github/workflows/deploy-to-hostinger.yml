@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  # Allow manual triggering
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -12,6 +14,13 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Debug Git Info
+        run: |
+          echo "Current branch: $(git branch --show-current)"
+          echo "Last commit: $(git log -1 --pretty=format:'%h - %s')"
 
       - name: Set Up Node.js
         uses: actions/setup-node@v4
@@ -25,10 +34,22 @@ jobs:
       - name: Build Project
         run: yarn build
 
-      - name: Copy .htaccess to output directory
-        run: cp .htaccess out/
+      - name: Debug Build Output
+        run: |
+          echo "Current directory structure:"
+          ls -la
+          echo "Output directory content:"
+          ls -la out/ || echo "out directory not found!"
+          echo "Node.js version: $(node -v)"
+          echo "Yarn version: $(yarn -v)"
 
-      - name: Deploy to Hostinger via FTP
+      - name: Copy .htaccess to output directory
+        run: |
+          cp .htaccess out/ || echo "Failed to copy .htaccess"
+          echo "Content of out directory after copying .htaccess:"
+          ls -la out/
+
+      - name: Deploy to Hostinger Account via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_HOST }}
@@ -37,4 +58,5 @@ jobs:
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./out/
           server-dir: /public_html/
-          dangerous-clean-slate: true # Use with caution - this will delete all files on the server
+          dangerous-clean-slate: true
+          log-level: verbose # Enable verbose logging
