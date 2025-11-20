@@ -266,7 +266,9 @@ For the easiest deployment experience, use Vercel:
 
 ## 🚀 GitHub Deployment
 
-To deploy this project to GitHub and Hostinger:
+### Manual Deployment
+
+To manually deploy this project to GitHub and Hostinger:
 
 1. Create a GitHub repository:
 
@@ -297,6 +299,39 @@ To deploy this project to GitHub and Hostinger:
 3. Upload to Hostinger:
    - Upload the contents of the `dist` directory to your Hostinger `public_html` folder
    - Or upload the `hostinger-deploy.zip` file and extract it in your `public_html` folder
+
+### Automated CI/CD Deployment
+
+This project is configured with GitHub Actions for continuous deployment to Hostinger. Whenever you push changes to the main branch, they will be automatically built and deployed to your Hostinger hosting account using FTP.
+
+#### Setup Instructions
+
+1. **Set up FTP access to your Hostinger account**:
+
+   - Follow the detailed instructions in [docs/hostinger-ftp-setup.md](docs/hostinger-ftp-setup.md)
+
+2. **Add required secrets to your GitHub repository**:
+
+   - Go to your GitHub repository > Settings > Secrets and variables > Actions
+   - Add the following secrets:
+     - `FTP_HOST`: Your Hostinger FTP hostname/server
+     - `FTP_USERNAME`: Your Hostinger FTP username
+     - `FTP_PASSWORD`: Your Hostinger FTP password
+     - `FTP_PORT`: Your Hostinger FTP port (usually 21)
+
+3. **Push changes to trigger deployment**:
+
+   ```bash
+   git add .
+   git commit -m "Update website content"
+   git push
+   ```
+
+4. **Monitor deployment**:
+   - Go to your GitHub repository > Actions tab
+   - You'll see the workflow running and can check its status
+
+With this setup, your website will be automatically deployed whenever you push changes to your GitHub repository, eliminating the need for manual uploads.
 
 ## 🤝 Contributing
 

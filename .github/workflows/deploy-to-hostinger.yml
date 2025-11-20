@@ -1,0 +1,40 @@
+name: Deploy to Hostinger via FTP
+
+on:
+  push:
+    branches:
+      - main # or master, depending on your default branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "yarn"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Project
+        run: yarn build
+
+      - name: Copy .htaccess to output directory
+        run: cp .htaccess out/
+
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          local-dir: ./out/
+          server-dir: /public_html/
+          dangerous-clean-slate: true # Use with caution - this will delete all files on the server
