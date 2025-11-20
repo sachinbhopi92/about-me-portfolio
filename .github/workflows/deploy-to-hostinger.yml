@@ -57,6 +57,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./out/
-          server-dir: /public_html/
-          dangerous-clean-slate: true
+          server-dir: /
+          strip_components: 1
           log-level: verbose # Enable verbose logging
