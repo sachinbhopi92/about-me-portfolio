@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cache Buster</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #0066cc;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        .button {
+            display: inline-block;
+            background-color: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cache Buster</h1>
+    <p>This page has cleared your browser cache for this website. You should now see the latest version of the site.</p>
+    
+    <p>If you're still seeing old content:</p>
+    <ol>
+        <li>Try a hard refresh: 
+            <ul>
+                <li>Windows/Linux: <code>Ctrl+F5</code> or <code>Ctrl+Shift+R</code></li>
+                <li>Mac: <code>Cmd+Shift+R</code></li>
+            </ul>
+        </li>
+        <li>Clear your browser cache manually:
+            <ul>
+                <li>Chrome: <code>Ctrl+Shift+Delete</code> (Windows) or <code>Cmd+Shift+Delete</code> (Mac)</li>
+                <li>Firefox: <code>Ctrl+Shift+Delete</code> (Windows) or <code>Cmd+Shift+Delete</code> (Mac)</li>
+                <li>Edge: <code>Ctrl+Shift+Delete</code></li>
+                <li>Safari: Safari menu > "Clear History..."</li>
+            </ul>
+        </li>
+        <li>Try opening the site in a private/incognito window</li>
+        <li>Try a different browser</li>
+    </ol>
+
+    <p class="success">Cache timestamp: <span id="timestamp"></span></p>
+    
+    <a href="/" class="button">Go to Homepage</a>
+
+    <script>
+        // Add timestamp to prevent caching
+        document.getElementById('timestamp').textContent = new Date().toISOString();
+        
+        // Clear cache for this site
+        function clearCache() {
+            if ('caches' in window) {
+                caches.keys().then(function(keyList) {
+                    return Promise.all(keyList.map(function(key) {
+                        return caches.delete(key);
+                    }));
+                });
+            }
+            
+            // Force reload all resources
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                const src = img.src;
+                img.src = src + '?t=' + new Date().getTime();
+            });
+            
+            // Add timestamp to all links
+            const links = document.querySelectorAll('a');
+            links.forEach(link => {
+                if (link.href && link.href.startsWith(window.location.origin)) {
+                    link.href = link.href + (link.href.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
+                }
+            });
+        }
+        
+        // Run on page load
+        clearCache();
+        
+        // Add timestamp to homepage link
+        document.querySelector('.button').href = '/?t=' + new Date().getTime();
+    </script>
+</body>
+</html>
