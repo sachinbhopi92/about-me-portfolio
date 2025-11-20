@@ -1,36 +1,313 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sachin Bhopi - Personal Portfolio Website
 
-## Getting Started
+A modern, responsive portfolio website built with Next.js, React, and Tailwind CSS, showcasing a unique dual-mode architecture: Single Page Application (SPA) and Route-based navigation.
 
-First, run the development server:
+## 🚀 Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+[View Live Demo](https://sachin-bhopi-portfolio.vercel.app) (Replace with your actual deployment URL)
+
+## 📋 Features
+
+- **Dual Navigation Modes**:
+  - **SPA Mode**: Smooth scrolling single-page experience
+  - **Route-based Mode**: Traditional multi-page navigation with dedicated URLs
+- **Micro-Frontend Architecture**:
+  - Demonstrates advanced frontend architecture concepts
+  - Seamlessly loads different technology implementations
+- **Responsive Design**:
+  - Mobile-first approach
+  - Fully responsive across all device sizes
+- **Dark Mode Support**:
+  - Automatic theme detection
+  - Manual theme toggle
+- **Internationalization (i18n)**:
+  - Multi-language support
+  - Language detection and switching
+- **Modern UI Components**:
+  - Clean, professional design
+  - Tailwind CSS for styling
+  - Smooth animations and transitions
+
+## 🛠️ Technology Stack
+
+- **Frontend**:
+
+  - Next.js 16.0.0
+  - React 19.2.0
+  - Tailwind CSS 4
+  - TypeScript
+
+- **Internationalization**:
+
+  - i18next
+  - react-i18next
+  - i18next-browser-languagedetector
+
+- **Development Tools**:
+  - ESLint
+  - TypeScript
+  - Concurrently
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18.x or later
+- Yarn or npm
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/about-me-website-sachin.git
+   cd about-me-website-sachin
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   yarn install
+   # or
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   yarn dev
+   # or
+   npm run dev
+   ```
+
+4. Open [http://localhost:9999](http://localhost:9999) in your browser to see the application.
+
+## 🏗️ Project Structure
+
+```
+about-me-website-sachin/
+├── public/                  # Static assets
+│   ├── sachin.jpg           # Profile image
+│   └── ...                  # Other static assets
+├── src/
+│   ├── app/                 # Next.js App Router
+│   │   ├── api/             # API routes
+│   │   │   └── download-resume/ # Resume download API
+│   │   ├── providers/       # React context providers
+│   │   ├── routes/          # Route-based pages
+│   │   │   ├── about/       # About page
+│   │   │   ├── experience/  # Experience page
+│   │   │   ├── personal/    # Personal page
+│   │   │   └── skills/      # Skills page
+│   │   ├── layout.tsx       # Root layout
+│   │   └── page.tsx         # Home page (SPA version)
+│   ├── assets/              # Assets (PDF, etc.)
+│   ├── components/          # Reusable components
+│   │   ├── LanguageSwitcher.tsx # Language switcher component
+│   │   ├── MicroFrontendLoader.tsx # Micro-frontend loader
+│   │   ├── PackageShowcase.tsx # Package showcase component
+│   │   └── ReactPortfolioWrapper.tsx # React SPA wrapper
+│   └── lib/                 # Utility functions and libraries
+│       └── i18n.ts          # i18n configuration
+├── .eslintrc.json           # ESLint configuration
+├── next.config.ts           # Next.js configuration
+├── package.json             # Project dependencies and scripts
+├── postcss.config.mjs       # PostCSS configuration
+├── tailwind.config.js       # Tailwind CSS configuration
+└── tsconfig.json            # TypeScript configuration
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧩 Architecture Overview
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Dual Navigation Modes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This portfolio website features two distinct navigation modes:
 
-## Learn More
+1. **SPA Mode (Single Page Application)**
 
-To learn more about Next.js, take a look at the following resources:
+   - Default mode on the home page
+   - Smooth scrolling between sections
+   - All content loaded on a single page
+   - Navigation handled by JavaScript scroll events
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Route-based Mode**
+   - Traditional multi-page navigation
+   - Each section has its own URL (e.g., `/routes/about`, `/routes/skills`)
+   - Better for SEO and sharing specific sections
+   - Accessible via the navigation menu
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Micro-Frontend Implementation
 
-## Deploy on Vercel
+The project showcases a micro-frontend architecture that allows different technologies to coexist:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **MicroFrontendLoader Component**: Dynamically loads different technology implementations
+- **ReactPortfolioWrapper**: Encapsulates the React implementation of the portfolio
+- **Technology Switching**: Allows users to experience the same content built with different frameworks
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### i18n (Internationalization)
+
+The website supports multiple languages through:
+
+- **i18n.ts**: Configuration for language detection and translation
+- **LanguageSwitcher Component**: UI for changing languages
+- **Translation Files**: Organized by language code
+
+## 📱 Responsive Design
+
+The portfolio is fully responsive across all device sizes:
+
+- **Mobile-first approach**: Designed for mobile devices first, then scaled up
+- **Tailwind CSS**: Utility classes for responsive design
+- **Flexible layouts**: Grid and flex layouts that adapt to screen size
+
+## 🔄 State Management
+
+- **React Hooks**: Used for component-level state management
+- **Context API**: Used for theme and language preferences
+
+## 🚀 Deployment
+
+### Hostinger Deployment
+
+To deploy this Next.js application on Hostinger:
+
+1. Modify `next.config.ts` to enable static exports:
+
+   ```typescript
+   const nextConfig = {
+     output: "export",
+     images: {
+       unoptimized: true,
+     },
+     // Keep any other existing configurations
+   };
+
+   export default nextConfig;
+   ```
+
+2. Build the application for static hosting:
+
+   ```bash
+   yarn build
+   # or
+   npm run build
+   ```
+
+3. Create a `.htaccess` file in the project root with the following content:
+
+   ```
+   <IfModule mod_rewrite.c>
+     RewriteEngine On
+     RewriteBase /
+     RewriteRule ^index\.html$ - [L]
+     RewriteCond %{REQUEST_FILENAME} !-f
+     RewriteCond %{REQUEST_FILENAME} !-d
+     RewriteRule . /index.html [L]
+   </IfModule>
+   ```
+
+4. After building, the static files will be in the `out/` directory. Upload all contents of the `out/` directory to your Hostinger hosting account using FTP or the File Manager in Hostinger's control panel.
+
+5. Important: Since we're using static export, server-side features like API routes (including the resume download API) won't work. You'll need to adjust the resume download functionality to use a direct file link instead.
+
+6. Configure your domain in the Hostinger control panel to point to the directory where you uploaded the files.
+
+### Node.js Hosting on Hostinger (Premium Plans)
+
+If you have a Hostinger plan with Node.js support:
+
+1. Build the application without static export:
+
+   ```bash
+   yarn build
+   # or
+   npm run build
+   ```
+
+2. Upload the entire project directory to your hosting account.
+
+3. Set up Node.js environment in Hostinger's control panel.
+
+4. Configure the start command to:
+
+   ```bash
+   npm start
+   ```
+
+5. Set environment variables as needed in the Hostinger control panel.
+
+### Alternative Deployment Options
+
+The application can also be deployed to any hosting service that supports Next.js:
+
+1. Build the application:
+
+   ```bash
+   yarn build
+   # or
+   npm run build
+   ```
+
+2. Start the production server:
+   ```bash
+   yarn start
+   # or
+   npm start
+   ```
+
+### Vercel Deployment
+
+For the easiest deployment experience, use Vercel:
+
+1. Push your code to a GitHub repository
+2. Import the project in Vercel
+3. Configure build settings if needed
+4. Deploy
+
+## 🚀 GitHub Deployment
+
+To deploy this project to GitHub and Hostinger:
+
+1. Create a GitHub repository:
+
+   ```bash
+   # Initialize git if not already done
+   git init
+
+   # Add all files
+   git add .
+
+   # Commit changes
+   git commit -m "Initial commit"
+
+   # Add your GitHub repository as remote
+   git remote add origin https://github.com/yourusername/about-me-website-sachin.git
+
+   # Push to GitHub
+   git push -u origin main
+   ```
+
+2. Build for Hostinger deployment:
+
+   ```bash
+   # Run the build script
+   ./build-for-hostinger.sh
+   ```
+
+3. Upload to Hostinger:
+   - Upload the contents of the `dist` directory to your Hostinger `public_html` folder
+   - Or upload the `hostinger-deploy.zip` file and extract it in your `public_html` folder
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 📞 Contact
+
+Sachin Bhopi - [sachin.bhopi92@gmail.com](mailto:sachin.bhopi92@gmail.com)
+
+LinkedIn: [https://www.linkedin.com/in/sachin-bhopi-85377077/](https://www.linkedin.com/in/sachin-bhopi-85377077/)
